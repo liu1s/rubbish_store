@@ -1,0 +1,3 @@
+#!/bin/bash
+./memcached -c 80000 -p 11211 -l 127.0.0.1 -d -m 64 -u root
+./memcached -c 80000 -p 11212 -l 127.0.0.1 -d -m 64 -u root

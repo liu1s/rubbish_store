@@ -1,0 +1,5 @@
+/usr/bin/php /home/www/v2/jobs/launcher.php web/BrokerInfo.php
+/usr/bin/php /home/www/v2/jobs/launcher.php haopan/sleep_change_prop.php
+/usr/bin/php /home/www/v2/jobs/launcher.php mendian/sales_performance.php
+/usr/bin/php /home/www/v2/jobs/launcher.php broker/assign_resources.php
+/usr/bin/php /home/www/v2/jobs/runner.php update_prop_comm.php

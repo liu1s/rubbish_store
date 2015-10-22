@@ -1,0 +1,204 @@
+#!/bin/bash
+
+function start {
+    local CLI=$@
+    PID=`pgrep -f "$CLI"`
+
+    if [ -z "$PID" ]
+    then
+        nohup $CLI > /dev/null &
+        PID=`pgrep -f "$CLI"`
+    fi
+
+    echo $PID
+}
+
+function stop {
+    local CLI=$@
+    PID=`pgrep -f "$CLI"`
+
+    if [ -n "$PID" ]
+    then
+        kill -9 $PID
+    fi
+
+}
+
+function restart {
+    local CLI=$@
+    stop $CLI
+    start $CLI
+}
+
+function help {
+    case $1 in
+    "1")
+        echo "You can do actions below: start | stop | restart";;
+    "2")
+        echo "You must give me the file path which including the jobs list.";;
+    "3")
+        echo "Option -s is required.It can be: start, stop, restart";;
+    "4")
+        echo "Option -f is required.It must be a file and readable.";;
+    "5")
+cat << EOF
+ ______   _______  _______  _______  _______  _       
+(  __  \ (  ____ \(  ___  )(       )(  ___  )( (    /|
+| (  \  )| (    \/| (   ) || () () || (   ) ||  \  ( |
+| |   ) || (__    | (___) || || || || |   | ||   \ | |
+| |   | ||  __)   |  ___  || |(_)| || |   | || (\ \) |
+| |   ) || (      | (   ) || |   | || |   | || | \   |
+| (__/  )| (____/\| )   ( || )   ( || (___) || )  \  |
+(______/ (_______/|/     \||/     \|(_______)|/    )_)
+                                                      
+ _        _______  _______  _______  _______  _______ 
+| \    /\(  ____ \(  ____ \(  ____ )(  ____ \(  ____ )
+|  \  / /| (    \/| (    \/| (    )|| (    \/| (    )|
+|  (_/ / | (__    | (__    | (____)|| (__    | (____)|
+|   _ (  |  __)   |  __)   |  _____)|  __)   |     __)
+|  ( \ \ | (      | (      | (      | (      | (\ (   
+|  /  \ \| (____/\| (____/\| )      | (____/\| ) \ \__
+|_/    \/(_______/(_______/|/       (_______/|/   \__/
+EOF
+        echo ""
+        echo "Deamon Keeper 1.0"
+        echo ""
+        echo "Usage: dkeeper -s <action> -f <file> -t <seconds> -d"
+        echo "       dkeeper -h"
+        echo "       dkeeper -v"
+        echo ""
+        echo "Example:"
+        echo "eg1: nohup dkeeper -s start -f ./jobs.txt -d -t 3 &"
+        echo "eg2: dkeeper -s stop -f ./jobs.txt"
+        echo ""
+        echo "Options:"
+        echo "  -s <action>         The action you want to do.It can be: start, stop, restart."
+        echo "  -f <file>           The file path which is including the jobs or services."
+        echo "  -t <second>         The seconds while sleeping.It will be available only when start or stop run as deamon."
+        echo "  -d                  Run as deamon.Only "start" and "stop" can use it."
+        echo "  -v                  Print version information."
+        echo "  -h                  Print this document.";;
+    "6")
+        echo "-t must be a number and greater than 0.";;
+    "7")
+        echo "-t is useless.It's useful just when -d is declared.";;
+    esac
+    exit
+}
+
+function run {
+    cat $2|while read job;do
+        $1 $job
+    done   
+}
+
+# deamon sign, not deamon as default.
+OPTION_DEAMON=0
+
+# the seconds while sleeping.
+OPTION_TIME=0
+
+if [ $# -eq 0 ]
+then
+    help 5
+fi
+
+while getopts :s:f:vhdt: p
+do
+    case $p in
+    s)
+        # check the action.
+        if [ -z $OPTARG ]
+        then
+            help 1
+        fi
+
+        IS_AVAILABLE=0
+        for ACTION in start stop restart
+        do
+            if [ $ACTION = $OPTARG ]
+            then
+                IS_AVAILABLE=1
+                break
+            fi
+        done
+
+        if [ $IS_AVAILABLE == 0 ]
+        then
+            help 1
+        fi
+
+        OPTION_ACT=$OPTARG;;
+    f)
+        # check the job list file path.
+        if [ -z $OPTARG ]
+        then
+            help 2
+        fi
+
+        if [ -r $OPTARG ] && [ -f $OPTARG ]
+        then
+            echo 'running'
+        else
+            help 2
+        fi
+
+        OPTION_FILE=$OPTARG;;
+    d)
+        # whether running as deamon
+        OPTION_DEAMON=1;;
+    t)
+        # the seconds while sleeping.
+        if [ $OPTARG -gt 0 ] 2> /dev/null
+        then
+            OPTION_TIME=$OPTARG
+        else
+            help 6
+        fi;;
+    v)
+        echo "Deamon Keeper 1.0"
+        exit 0;;
+    h)
+        help 5;;
+    esac
+done
+
+if [ -z "$OPTION_ACT" ]
+then
+    help 3
+fi
+
+if [ -z "$OPTION_FILE" ]
+then
+    help 4
+fi
+
+if [ $OPTION_TIME -gt 0 ] && [ $OPTION_DEAMON -eq 0 ]
+then
+    help 7
+fi
+
+# OK, Let's go!
+if [ $OPTION_DEAMON -eq 1 ]
+then
+    if [ $OPTION_ACT == "start" ] || [ $OPTION_ACT == "stop" ]
+    then
+        while true
+        do
+            run $OPTION_ACT $OPTION_FILE
+
+            if [ $OPTION_TIME -gt 0 ]
+            then
+                echo "sleep $OPTION_TIME"
+                sleep $OPTION_TIME
+            fi
+        done
+    else
+        echo "Restart can't be running as deamon."
+        exit 0
+    fi
+else
+    run $OPTION_ACT $OPTION_FILE
+fi
+
+# end of this script

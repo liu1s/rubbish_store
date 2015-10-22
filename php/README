@@ -1,0 +1,3 @@
+替换email地址中部分字符为*
+hideEmail($email, $preRetain = 3) 
+

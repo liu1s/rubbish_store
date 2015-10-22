@@ -1,0 +1,14 @@
+/usr/bin/php /home/www/v2/jobs/launcher.php web/BrokerInfo.php
+/usr/bin/php /home/www/v2/jobs/launcher.php web/AjkQueue.php
+/usr/bin/php /home/www/v2/jobs/launcher.php web/broker/changeMobile.php
+/usr/bin/php /home/www/v2/jobs/launcher.php haopan/sleep_change_prop.php
+/usr/bin/php /home/www/v2/jobs/launcher.php mendian/sales_performance.php
+/usr/bin/php /home/www/v2/jobs/launcher.php broker/assign_resources.php
+sh /home/www/jobs/haopan/sales_performance.sh
+sh /home/www/jobs/broker/assign_resources.sh
+sh /home/www/jobs/3web/brokerinfo.sh
+sh /home/www/jobs/3web/changemobile.sh
+sh /home/www/jobs/haopan/sleep_change_prop.sh
+sh /home/www/jobs/3web/ajkqueue.sh
+sh /home/www/jobs/update_prop_comm/update_prop_comm.sh
+/usr/bin/php /home/www/v2/jobs/runner.php update_prop_comm.php
