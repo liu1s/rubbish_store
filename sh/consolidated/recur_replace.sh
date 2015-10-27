@@ -17,11 +17,11 @@ function replace()
     do
         if [ -d $item ];then
             echo $1/$item
-            bash $ab_shell_path/recur_replace.sh $1/$item
+            bash /Users/mls/code_source/mls/higo/categoryservice/recur_replace.sh $1/$item
         else
             #ls $item
             if [ "$item" != "recur_replace.sh" ];then
-                sed -i "" "s/Higoservice/Goodsservice/g" $item
+                sed -i "" "s/goodsservice/categoryservice/g" $item
             fi
         fi
     done
