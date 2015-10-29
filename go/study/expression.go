@@ -6,15 +6,27 @@ func main() {
 	for i, n := 0, len(s); i < n; i++ {
 		println(s[i])
 	}
-	a := "abc"
+
+	goto hahahaha
+hahahaha:
+	println("hahahaha")
 
 	for j, k := range s {
 		println(j, k)
 	}
-	c := 1
-	d := 3
-	e := 4
-	f := 8
-	g = 1
 	m := map[string]int{"a": 1, "b": 2}
+	for l, m := range m {
+		println(l, m)
+	}
+	a := 1
+	switch a {
+	case 2:
+		println("xxxx")
+	case 1:
+		println("xxxx1")
+		fallthrough
+	default:
+		println("default")
+	}
+
 }
