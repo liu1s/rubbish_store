@@ -3,7 +3,33 @@ package main
 import "fmt"
 
 func main() {
-	test2()
+	test3()
+}
+
+func test3() {
+	type List struct {
+		data struct {
+			name string
+			sex  string
+		}
+		next *List
+	}
+
+	first := List{
+		//data: {"wo shi 1", "male"}, // Error: missing type in composite literal
+		next: nil,
+	}
+	first.data.name = "wo shi 1"
+	first.data.sex = "male"
+
+	second := List{
+		//data: {"wo shi 2", "female"},
+		next: &first,
+	}
+	second.data.name = "wo shi 2"
+	second.data.sex = "female"
+
+	fmt.Println(second.next.data.name, second.next.data.sex)
 }
 
 func test2() {
