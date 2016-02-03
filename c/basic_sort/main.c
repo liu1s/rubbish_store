@@ -6,7 +6,8 @@
 #include "tools.h"
 #include "bubble_sort.h"
 #include "select_sort.h"
-
+#include "quick_sort.h"
+#include "insertion_sort.h"
 
 int main(int argc, char* argv[])
 {
@@ -24,17 +25,39 @@ int main(int argc, char* argv[])
         init_data[i] = rand()%100+1;
     }
 
-    //int init_data[10] = {10,9,8,7,6,5,4,3,2,1};
+//    init_data[0] = 13;
+//    init_data[1] = 11;
+//    init_data[2] = 10;
+//    num = 3;
 
     show_data_tree(init_data, num);
+
+
+//    pid_t fpid;
+//    fpid=fork();
+//    if (fpid < 0)
+//        printf("error in fork!");
+//    else if (fpid == 0) {
+//        while(1){
+//            show_data_tree(init_data, num);
+//        }
+//    }
+//    else {
+//        if (select_sort(init_data, num) == FALSE) {
+//            printf("sort fail.\r\n");
+//            return 1;
+//        }
+//    }
 
 //    if (bubble_sort(init_data, num) == FALSE) {
 //        printf("sort fail.\r\n");
 //    }
 
-    if (select_sort(init_data, num) == FALSE) {
-        printf("sort fail.\r\n");
-    }
+//    if (quick_sort(init_data, 0, num-1, num) == FALSE) {
+//        printf("sort fail.\r\n");
+//    }
+
+    insertion_sort(init_data, num);
 
     return 0;
 }
