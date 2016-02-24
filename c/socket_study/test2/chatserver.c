@@ -4,7 +4,7 @@
 int
 main(int argc, char **argv)
 {
-    int                 i, maxi, maxfd, listenfd, connfd, sockfd;
+    int                 i,j, maxi, maxfd, listenfd, connfd, sockfd;
     int                 nready, client[FD_SETSIZE];
     ssize_t             n;
     fd_set              rset, allset;
@@ -17,7 +17,7 @@ main(int argc, char **argv)
     bzero(&servaddr, sizeof(servaddr));
     servaddr.sin_family      = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    servaddr.sin_port        = htons(7745);
+    servaddr.sin_port        = htons(7746);
 
     Bind(listenfd, (SA *) &servaddr, sizeof(servaddr));
 
@@ -73,7 +73,13 @@ main(int argc, char **argv)
                     FD_CLR(sockfd, &allset);
                     client[i] = -1;
                 } else
-                    Writen(sockfd, buf, n);
+                    for(j = 0; j<= maxi;j++) {
+                        if ((sockfd = client[j]) > 0 && i != j && strlen(buf) > 0) { //像自己以外的客户端发送信息
+                            Writen(sockfd, buf, n);
+                        }
+                    }
+
+                    //Writen(sockfd, buf, n);
 
                 if (--nready <= 0)
                     break;              /* no more readable descriptors */

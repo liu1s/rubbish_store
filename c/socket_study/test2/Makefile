@@ -1,6 +1,6 @@
 ##simple makefile
 
-tag = server client sigchldwaitpid.o tcpserver tcpclient selectclient selectserver 
+tag = server client sigchldwaitpid.o tcpserver tcpclient selectclient selectserver chatserver chatclient
 
 all: ${tag}
 
@@ -34,6 +34,12 @@ selectserver: selectserver.c
 	
 selectclient: selectclient.c select_strcli.c
 	${CC} ${CFLAGS} selectclient.c select_strcli.c -o $@ ${LIBS}
+	
+chatserver: chatserver.c 
+	${CC} ${CFLAGS} chatserver.c -o $@ ${LIBS}
+	
+chatclient: chatclient.c chat_strcli.c
+	${CC} ${CFLAGS} chatclient.c chat_strcli.c -o $@ ${LIBS}
 	
 clean: 
 	rm ${tag}
