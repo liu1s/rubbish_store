@@ -39,6 +39,7 @@ str_cli(FILE *fp, int sockfd)
 
             Write(fileno(stdout), "\033[1A", sizeof("\033[1A"));
             Write(fileno(stdout), "\033[K", sizeof("\033[K"));
+            printf("我说： %s", buf);
 
 
             Writen(sockfd, buf, n);
