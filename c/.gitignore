@@ -1,0 +1,7 @@
+core
+tags
+*.o
+*.so.*
+*.exe.*
+*.exe
+*.a

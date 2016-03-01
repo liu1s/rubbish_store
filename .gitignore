@@ -8,3 +8,5 @@ RemoteSystemsTempFiles
 
 .setting
 main.dSYM
+
+*.dsYm
