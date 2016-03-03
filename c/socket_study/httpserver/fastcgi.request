@@ -1,0 +1,15 @@
+{>SCRIPT_FILENAME/Users/mls/code_source/mls/higo/categoryservice/host/index.php
+                                                                               QUERY_STRINGREQUEST_METHODGET
+                                                                                                            CONTENT_TYPECONTENT_LENGTH
+
+SCRIPT_NAME/index.php
+                     REQUEST_URI/
+
+4DOCUMENT_ROOT/Users/mls/code_source/mls/higo/categoryservice/hosSERVER_PROTOCOLHTTP/1.1GATEWAY_INTERFACECGI/1.1
+                                                                                                                SERVER_SOFTWAREnginx/1.1.19
+                            REMOTE_ADDR127.0.0.1
+                                                    REMOTE_PORT52391
+                                                                        SERVER_ADDR127.0.0.1
+                                                                                            SERVER_PORT80
+                                                                                                         SERVER_NAMEfastcgi.test.comREDIRECT_STATUS200cHTTP_USER_AGENTcurl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3   HTTP_HOSTfastcgi.test.com
+                                                                 HTTP_ACCEPT*/*
