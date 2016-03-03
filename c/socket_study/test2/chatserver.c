@@ -79,7 +79,7 @@ main(int argc, char **argv)
                         }
                     }
 
-                    //Writen(sockfd, buf, n);
+                    Writen(fileno(stdout), buf, n);
 
                 if (--nready <= 0)
                     break;              /* no more readable descriptors */

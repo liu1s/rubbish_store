@@ -37,7 +37,9 @@ main(int argc, char **argv)
         printf("iret:%d\n", iret);
         if(iret>0)
         {
-            printf("from client : %s\n", revieve_buff);
+            //write(fileno(stdout), revieve_buff, sizeof(revieve_buff));
+            write(fileno(stdout), revieve_buff, iret);
+            //printf("from client : %s\n", revieve_buff);
         }else
         {
             break;

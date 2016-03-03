@@ -1,6 +1,6 @@
 ##simple makefile
 
-tag = httpserver
+tag = httpserver fastcgi_server.fcgi
 
 all: ${tag}
 
@@ -14,6 +14,10 @@ LIBS = ../unpv13e/libunp.a -lpthread
 httpserver: httpserver.c 
 	${CC} ${CFLAGS} httpserver.c http-parser/http_parser.o  -o $@ ${LIBS}
 	
+fastcgi_server.fcgi:fastcgi_server.c
+#	${CC} fastcgi_server.c -o $@ /usr/local/fastcgi/lib/libfcgi.a
+	${CC}  fastcgi_server.c  -o $@ -lfcgi -L /usr/local/fastcgi/lib -lpthread
+    	
 	
 clean: 
 	rm ${tag}
